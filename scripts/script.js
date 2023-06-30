@@ -6,54 +6,40 @@ const elemnts = Array.from(mainBlock.querySelectorAll('.block'));
 
 container.addEventListener('click', (e) => {
 	const target = e.target;
-	if (target.closest('.right')) {
-		let blocks = mainBlock.querySelectorAll('.block');
+	   let blocks = mainBlock.querySelectorAll('.block');
 		let arrayBlocks = Array.from(blocks);
 		let block = findElem(arrayBlocks, target.closest('.block'));
-		let index=getIndexBlock(arrayBlocks,block)
+	   let index = getIndexBlock(arrayBlocks, block);
+	
+	if (target.closest('.right')) {
+		
 		if ( index === arrayBlocks.length-1) {
 			return;
 		} else { 
 			mainBlock.innerHTML = '';
-			newArr(arrayBlocks, index, index +1).forEach(el => {
-				mainBlock.append(el);
-			});
+			appendArrayToBlock(newArr(arrayBlocks, index, index +1), mainBlock);
 		}
 	}
 	if (target.closest('.left')) { 
-		let blocks = mainBlock.querySelectorAll('.block');
-		let arrayBlocks = Array.from(blocks);
-		let block = findElem(arrayBlocks, target.closest('.block'));
-		let index=getIndexBlock(arrayBlocks,block)
+
 		if (index === 0) {
 			return;
 		} else { 
 			mainBlock.innerHTML = '';
-			newArr(arrayBlocks, index, index - 1).forEach(el => {
-				mainBlock.append(el);
-			});
+			appendArrayToBlock(newArr(arrayBlocks, index, index - 1), mainBlock);
 		}
 	}
 	if (target.closest('.top')) { 
-		let blocks = mainBlock.querySelectorAll('.block');
-		let arrayBlocks = Array.from(blocks);
-		let block = findElem(arrayBlocks, target.closest('.block'));
-		let index = getIndexBlock(arrayBlocks, block);
+
 		if (index >= 0&&index<=4) {
 			return;
 		} else { 
 			mainBlock.innerHTML = '';
-			newArr(arrayBlocks, index, index - 5).forEach(el => {
-				mainBlock.append(el);
-			});
+			appendArrayToBlock(newArr(arrayBlocks, index, index - 5), mainBlock);
 		}
 	}
 	if (target.closest('.bottom')) { 
-		let blocks = mainBlock.querySelectorAll('.block');
-		let arrayBlocks = Array.from(blocks);
-		let block = findElem(arrayBlocks, target.closest('.block'));
-		let index=getIndexBlock(arrayBlocks,block)
-		
+
 		if ( index <= arrayBlocks.length - 1&&index >= arrayBlocks.length - 5) {
 			return;
 		} else { 
@@ -63,17 +49,19 @@ container.addEventListener('click', (e) => {
 			});
 		}
 		
-	} if (target.closest('.btn-reset')) { 
-		console.log('fff');
-		
+	}
+	if (target.closest('.btn-reset')) { 
 		mainBlock.innerHTML = '';
-		elemnts.forEach(el => { 
-			mainBlock.append(el);
-		});
+		appendArrayToBlock(elemnts, mainBlock);
 	}
 	
 });
  
+const appendArrayToBlock = (array, block) => {
+	array.forEach(el => {
+		block.append(el);
+	});
+ }
 const findElem = (arrayElems,target) => {
 	return arrayElems.find(el=>el===target);//
 }
